@@ -14,14 +14,15 @@ It explains:
 
 GitHub repository:
 
-- [peer-review-response-implementation-plan-vba](https://github.com/shanimosco47-pixel/peer-review-response-implementation-plan-vba)
+- [PPT-Timer](https://github.com/shanimosco47-pixel/PPT-Timer)
 
 Repository status at handoff:
 
 - Remote exists on GitHub
-- Visibility: `PRIVATE`
+- Visibility: `PUBLIC`
 - Default branch: `main`
 - Source code has already been committed and pushed
+- The actual `.pptm` presentation file is private and is not stored in this repository
 
 ## What Was Already Approved
 
@@ -111,9 +112,9 @@ The system already logs major events such as:
 
 Clone this repository locally from:
 
-- `https://github.com/shanimosco47-pixel/peer-review-response-implementation-plan-vba`
+- `https://github.com/shanimosco47-pixel/PPT-Timer`
 
-If GitHub authentication is required, sign in with the account that has access to the private repo.
+No PowerPoint presentation file is expected in the clone. This repository contains only exported VBA source files and documentation.
 
 ### 2. Open the repository root
 
@@ -129,7 +130,7 @@ These three files give the fastest orientation.
 
 Open the presentation that should host the timer logic.
 
-If the `.pptm` file is not yet under source control, decide where it will live and make sure the repository still remains the source of truth for the exported `.bas` and `.cls` files.
+The `.pptm` file is private and intentionally remains outside this public repository. Keep the presentation in a private local or private cloud location, and treat this repository as the source of truth for the exported `.bas` and `.cls` files.
 
 ### 4. Import the VBA modules
 
@@ -215,6 +216,7 @@ If changes are made inside the VBA editor:
 - export the updated `.bas` and `.cls` files back into the repository
 - overwrite only after reviewing the content
 - commit and push the exported source files back to GitHub
+- do not upload the private `.pptm` file to this public repository
 
 Do not leave the PowerPoint file as the only place where the code exists.
 

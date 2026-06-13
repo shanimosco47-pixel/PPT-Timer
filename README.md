@@ -2,12 +2,21 @@
 
 This repository contains the VBA source files and implementation notes for a PowerPoint countdown timer built with a Win32 `SetTimer` / `KillTimer` architecture.
 
+The PowerPoint presentation file itself (`.pptm`) is intentionally not stored in this repository. The `.pptm` remains private, while this repository acts as the public source of truth for the exported VBA modules and project documentation.
+
 ## Repository Contents
 
 - `outputs/vba/` - import-ready `.bas` and `.cls` source modules
 - `outputs/vba/README.md` - VBA import order and runtime wiring notes
 - `outputs/vba/ACTIVEX_TIMER_SNIPPET.txt` - example UI-thread polling hookup
 - `project_active_session.md` - session memory and implementation context
+
+## Private Presentation Workflow
+
+- Keep the actual `.pptm` file private and outside this public repository.
+- Import the modules from `outputs/vba/` into the private presentation.
+- When VBA code changes inside PowerPoint, export the updated `.bas` and `.cls` files back into this repository.
+- Commit and push the exported source files so GitHub remains the source of truth for code history.
 
 ## Key Design Rules
 

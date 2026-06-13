@@ -2,6 +2,8 @@
 
 Files in this folder are import-ready VBA source modules for the approved timer architecture.
 
+These files are meant to be imported into a private PowerPoint `.pptm`. The presentation file itself is intentionally kept out of this public repository.
+
 Suggested import order:
 
 1. `basLogger.bas`
@@ -21,6 +23,7 @@ Minimal runtime flow:
 3. Call `StartCountdownTimer 300` to start a 5-minute timer.
 4. Wire the validated UI-thread polling mechanism to call `PollTimerTick` every 1000 ms.
 5. Use `StopCountdownTimer` or `ShutdownTimerSystem` for manual cleanup if needed.
+6. After making changes inside PowerPoint, export the updated modules back into this folder and commit them to GitHub.
 
 Notes:
 
