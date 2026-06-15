@@ -19,6 +19,8 @@ Sub StartCountdown()
     endTime = DateAdd("s", 300, Now)
     lastSecond = -1
 
+    On Error Resume Next
+
     Do While Now < endTime
         DoEvents
         If SlideShowWindows.Count = 0 Then Exit Do
@@ -27,11 +29,8 @@ Sub StartCountdown()
         If currentSecond <> lastSecond Then
             lastSecond = currentSecond
 
-            ' Find the countdown shape on the current slide
             Set shp = Nothing
-            On Error Resume Next
             Set shp = ssw.View.Slide.Shapes("countdown")
-            On Error GoTo CleanExit
 
             If Not shp Is Nothing Then
                 shp.TextFrame.TextRange.Text = Format(TimeSerial(0, currentSecond \ 60, currentSecond Mod 60), "mm:ss")
@@ -39,15 +38,10 @@ Sub StartCountdown()
         End If
     Loop
 
-    ' Show 00:00 on the current slide if countdown shape exists
-    If SlideShowWindows.Count > 0 Then
-        Set shp = Nothing
-        On Error Resume Next
-        Set shp = ssw.View.Slide.Shapes("countdown")
-        On Error GoTo CleanExit
-        If Not shp Is Nothing Then
-            shp.TextFrame.TextRange.Text = "00:00"
-        End If
+    Set shp = Nothing
+    Set shp = ssw.View.Slide.Shapes("countdown")
+    If Not shp Is Nothing Then
+        shp.TextFrame.TextRange.Text = "00:00"
     End If
 
     Exit Sub
