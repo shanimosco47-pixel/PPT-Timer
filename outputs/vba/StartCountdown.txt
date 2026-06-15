@@ -32,6 +32,9 @@ Sub StartCountdown()
             Set shp = Nothing
             Set shp = ssw.View.Slide.Shapes("countdown")
 
+            Debug.Print "Slide=" & ssw.View.CurrentShowPosition & " shp=" & (Not shp Is Nothing) & " sec=" & currentSecond & " err=" & Err.Number
+            Err.Clear
+
             If Not shp Is Nothing Then
                 shp.TextFrame.TextRange.Text = Format(TimeSerial(0, currentSecond \ 60, currentSecond Mod 60), "mm:ss")
             End If
