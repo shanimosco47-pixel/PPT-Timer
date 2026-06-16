@@ -1,22 +1,29 @@
 # VBA Source Files
 
-Two files. Import both into the PowerPoint VBA editor (`Alt+F11`).
+Import these source files into a macro-enabled PowerPoint deck (`.pptm`). Do not commit or upload the deck itself if it contains private presentation content.
 
 ## Files
 
-| File | Where to paste |
-|------|---------------|
-| `ThisPresentation.cls` | `ThisPresentation` module (double-click it in the Project tree) |
-| `Module1.bas` | Insert → Module, paste contents |
+| File | Where to paste/import |
+|------|------------------------|
+| `Module1.bas` | Insert -> Module, then paste/import the contents |
+| `ThisPresentation.cls` | Paste the event procedures into the existing `ThisPresentation` object |
 
-## How it works
+## Current behavior
 
-- **On open / slideshow start** — `SetupShapes` runs automatically and adds a `countdown` textbox + `▶ Start` button to every slide that doesn't already have them.
-- **During slideshow** — click `▶ Start`, enter minutes, timer counts down on every slide simultaneously.
-- **At zero** — display flashes red six times, stays red at `00:00`.
+- No visible Start button is used.
+- When slideshow mode starts, the countdown prompt appears once.
+- The prompt default is read from the existing `countdown` timer text, so changing `05:00` to `09:00` before pressing F5 makes the popup default to `9` minutes.
+- The selected timer value is applied to all slides.
+- During playback, the timer keeps running across slide changes.
+- Fast slide navigation updates the current slide immediately, while the timer syncs all slide timer shapes once per second.
+- When the slideshow ends, the timer state is reset so the next slideshow run prompts again.
 
 ## Recipient workflow
 
-1. Open `.pptm` → click **Enable Content**
-2. Paste their slides
-3. Press `F5` → click `▶ Start` → enter minutes → done
+1. Save the PowerPoint file as `.pptm`.
+2. Open the VBA editor with `Alt+F11`.
+3. Import or paste `Module1.bas` into a standard module.
+4. Paste the `ThisPresentation.cls` event procedures into the deck's existing `ThisPresentation` object.
+5. Run `SetupShapes` once, or close/reopen the deck with macros enabled.
+6. Press `F5`, enter the countdown duration once, and present normally.
