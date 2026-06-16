@@ -14,5 +14,9 @@ Private Sub Presentation_Open()
 End Sub
 
 Private Sub Presentation_SlideShowBegin(ByVal Wn As SlideShowWindow)
-    SetupShapes
+    CountdownShowStarted Wn
+End Sub
+
+Private Sub Presentation_SlideShowEnd(ByVal Pres As Presentation)
+    CountdownShowEnded
 End Sub
