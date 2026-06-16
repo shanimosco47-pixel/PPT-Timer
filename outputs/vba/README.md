@@ -1,33 +1,22 @@
-# PowerPoint Win32 Timer VBA Modules
+# VBA Source Files
 
-Files in this folder are import-ready VBA source modules for the approved timer architecture.
+Two files. Import both into the PowerPoint VBA editor (`Alt+F11`).
 
-These files are meant to be imported into a private PowerPoint `.pptm`. The presentation file itself is intentionally kept out of this public repository.
+## Files
 
-Suggested import order:
+| File | Where to paste |
+|------|---------------|
+| `ThisPresentation.cls` | `ThisPresentation` module (double-click it in the Project tree) |
+| `Module1.bas` | Insert → Module, paste contents |
 
-1. `basLogger.bas`
-2. `clsTimerState.cls`
-3. `clsUIUpdater.cls`
-4. `clsTimerController.cls`
-5. `clsLifecycle.cls`
-6. `basWin32API.bas`
-7. `basTimerBootstrap.bas`
-8. `basTestHelpers.bas`
-9. `basTimerTests.bas`
+## How it works
 
-Minimal runtime flow:
+- **On open / slideshow start** — `SetupShapes` runs automatically and adds a `countdown` textbox + `▶ Start` button to every slide that doesn't already have them.
+- **During slideshow** — click `▶ Start`, enter minutes, timer counts down on every slide simultaneously.
+- **At zero** — display flashes red six times, stays red at `00:00`.
 
-1. Import all modules into the PowerPoint VBA project.
-2. Add a shape named `CountdownTimer` to the relevant slideshow slide or slide master.
-3. Call `StartCountdownTimer 300` to start a 5-minute timer.
-4. Wire the validated UI-thread polling mechanism to call `PollTimerTick` every 1000 ms.
-5. Use `StopCountdownTimer` or `ShutdownTimerSystem` for manual cleanup if needed.
-6. After making changes inside PowerPoint, export the updated modules back into this folder and commit them to GitHub.
+## Recipient workflow
 
-Notes:
-
-- `TimerProc` does not touch the PowerPoint Object Model.
-- UI updates are centralized in `clsUIUpdater`.
-- Logging defaults to `%TEMP%\PPT_Timer_Debug.log`.
-- `ExperimentalRunPollingLoop` is included only as a validation fallback, not the preferred production polling strategy.
+1. Open `.pptm` → click **Enable Content**
+2. Paste their slides
+3. Press `F5` → click `▶ Start` → enter minutes → done
