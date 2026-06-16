@@ -1,37 +1,31 @@
-# PowerPoint Win32 Timer Architecture
+# PPT Timer
 
-This repository contains the VBA source files and implementation notes for a PowerPoint countdown timer built with a Win32 `SetTimer` / `KillTimer` architecture.
+A PowerPoint countdown timer that auto-installs itself onto every slide.
 
-The PowerPoint presentation file itself (`.pptm`) is intentionally not stored in this repository. The `.pptm` remains private, while this repository acts as the public source of truth for the exported VBA modules and project documentation.
+## How to use
 
-## Repository Contents
+1. Save your presentation as `.pptm` (macro-enabled)
+2. Open the VBA editor (`Alt+F11`)
+3. Paste `ThisPresentation.cls` into the `ThisPresentation` module
+4. Insert a new module (`Insert → Module`) and paste `Module1.bas`
+5. Save and close the editor
 
-- `outputs/vba/` - import-ready `.bas` and `.cls` source modules
-- `outputs/vba/README.md` - VBA import order and runtime wiring notes
-- `outputs/vba/ACTIVEX_TIMER_SNIPPET.txt` - example UI-thread polling hookup
-- `project_active_session.md` - session memory and implementation context
+**Or** — open the pre-built `.pptm` template and paste your slides into it.
 
-## Private Presentation Workflow
+## Recipient workflow
 
-- Keep the actual `.pptm` file private and outside this public repository.
-- Import the modules from `outputs/vba/` into the private presentation.
-- When VBA code changes inside PowerPoint, export the updated `.bas` and `.cls` files back into this repository.
-- Commit and push the exported source files so GitHub remains the source of truth for code history.
+1. Open `.pptm` → click **Enable Content**
+2. Paste your slides
+3. Press `F5` → click `▶ Start` → enter minutes → timer runs on every slide
 
-## Key Design Rules
+## What happens automatically
 
-- The Win32 callback never touches the PowerPoint Object Model.
-- UI updates are centralized and run on PowerPoint's normal execution path.
-- Cleanup is defensive and triggered from multiple lifecycle paths.
-- Logging is written to `%TEMP%\PPT_Timer_Debug.log`.
+- Opening the file adds a `countdown` label and `▶ Start` button to every slide
+- Starting the slideshow catches any slides added after the file was opened
+- The timer updates all slides every second
+- At zero the display flashes red, then stays red at `00:00`
 
-## Quick Start
+## Files
 
-1. Import the files from `outputs/vba/` into the PowerPoint VBA project.
-2. Add a shape named `CountdownTimer` to the relevant slide or slide master.
-3. Start the timer with `StartCountdownTimer 300`.
-4. Connect the validated polling mechanism so it calls `PollTimerTick` every second.
-
-## Status
-
-The VBA source has been generated and organized for import. Final runtime validation still needs to happen inside PowerPoint, especially for the chosen polling mechanism.
+- `outputs/vba/ThisPresentation.cls` — lifecycle hooks
+- `outputs/vba/Module1.bas` — SetupShapes, StartCountdown, RunTimer
